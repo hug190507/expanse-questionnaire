@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お客様アンケート | Expanse..</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#403936;
+  --bg-deep:#332e2b;
+  --text:#d6d6d6;
+  --muted:#a9a4a0;
+  --gold:#958348;
+  --gold-hi:#a58c1b;
+  --line:#787573;
+  --field:#ffffff;
+  --field-text:#222;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Noto Serif JP",serif;
+  font-size:15px;
+  line-height:1.9;
+  letter-spacing:.04em;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+
+/* hero */
+.hero{text-align:center;padding:90px 16px 70px;background:
+  radial-gradient(ellipse at 50% 0%,rgba(149,131,72,.14),transparent 60%),var(--bg-deep)}
+.section_title{font-weight:400}
+.section_title-en{display:block;font-family:"Cinzel","Trajan",serif;font-size:55px;line-height:1.35;text-transform:uppercase;color:var(--text);letter-spacing:.02em}
+.section_title-ja{display:block;font-size:24px;color:var(--gold-hi);margin-top:10px}
+.hero .lead{max-width:640px;margin:36px auto 0;font-size:15px;line-height:2.1}
+
+/* progress */
+.progress{position:sticky;top:0;z-index:10;background:rgba(51,46,43,.94);backdrop-filter:blur(4px);border-bottom:1px solid #5a5350}
+.progress .inner{max-width:900px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px;font-size:12px}
+.progress .bar{flex:1;height:2px;background:#5a5350;position:relative}
+.progress .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);transition:width .35s}
+.progress .num{font-family:"Cinzel",serif;color:var(--gold-hi);min-width:64px;text-align:right}
+
+/* form */
+main{max-width:900px;margin:0 auto;padding:40px 24px 100px}
+.form-top{border-top:1px solid var(--gold)}
+.q{padding:48px 0;border-bottom:1px solid var(--line)}
+.q-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:26px}
+.q-no{font-family:"Cinzel",serif;font-size:28px;color:var(--gold-hi);line-height:1;flex:0 0 auto}
+.q-title{font-size:18px;font-weight:500;flex:1 1 300px;line-height:1.7}
+.badge{display:inline-block;background:var(--gold);color:var(--text);font-size:13px;padding:1px 10px;line-height:1.8;white-space:nowrap;align-self:center}
+.badge.opt{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.badge.type{background:transparent;border:1px solid var(--gold);color:var(--gold-hi);margin-left:-8px}
+.badge.req{background:var(--gold);color:#fff}
+.q,.sub{scroll-margin-top:60px}
+.q-error{display:none;color:#e0b25c;font-size:13px;margin-top:14px}
+.needs-answer > .q-error,.needs-answer > .q-body > .q-error{display:block}
+.needs-answer .q-no{color:#e0b25c}
+.q-body{padding-left:0}
+
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}
+.choice{display:flex;align-items:center;gap:14px;cursor:pointer;min-height:36px;position:relative}
+.choice input[type=radio],.choice input[type=checkbox]{position:absolute;opacity:0;width:1px;height:1px}
+.choice .mark{flex:0 0 20px;width:20px;height:20px;background:var(--field);border-radius:50%;position:relative;transition:box-shadow .2s}
+.choice input[type=checkbox]+.mark{border-radius:0}
+.choice input[type=radio]:checked+.mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--gold)}
+.choice input[type=checkbox]:checked+.mark{background:var(--gold)}
+.choice input[type=checkbox]:checked+.mark::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.choice input:focus-visible+.mark{box-shadow:0 0 0 3px rgba(165,140,27,.55)}
+.choice:hover .txt{color:#fff}
+.choice input:checked~.txt{color:#fff}
+.choice.other{grid-column:1/-1;flex-wrap:wrap}
+.other-input{flex:1 1 220px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);font:inherit;padding:4px 2px;outline:none;transition:border-color .2s}
+.other-input:focus{border-color:var(--gold-hi)}
+.other-input::placeholder{color:#8a8480}
+
+.sub{margin-top:36px;padding:28px 28px 30px;background:rgba(0,0,0,.14);border-left:2px solid var(--gold)}
+.sub-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-bottom:20px}
+.sub-head h4{font-size:16px;font-weight:500}
+.sub-mark{width:14px;height:1px;background:var(--gold-hi)}
+
+.field{width:100%;border:0;background:var(--field);color:var(--field-text);font:inherit;font-size:16px;padding:14px 22px;outline:none;border-radius:0;transition:box-shadow .2s}
+.field:focus{box-shadow:0 0 0 3px rgba(165,140,27,.55)}
+.field::placeholder{color:#888}
+.field.short{max-width:420px}
+textarea.field{resize:vertical;line-height:1.8}
+.count{text-align:right;font-size:12px;color:var(--muted);margin-top:6px;font-family:"Cinzel",serif}
+
+/* contact */
+.contact{margin-top:70px}
+.contact .section_title-en{font-size:40px}
+.contact .section_title-ja{font-size:20px}
+.contact .intro{text-align:center;margin:26px 0 30px}
+.contact dl{display:flex;align-items:center;gap:20px;padding:30px 0;border-bottom:1px solid var(--line)}
+.contact dl:first-of-type{border-top:1px solid var(--gold)}
+.contact dt{flex:0 0 250px;font-size:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.contact dd{flex:1}
+
+.submit-area{margin-top:60px;text-align:center}
+.submit{width:100%;max-width:560px;border:0;background:var(--gold);color:var(--text);font-family:inherit;font-size:24px;letter-spacing:.2em;padding:26px 0;cursor:pointer;transition:background .25s}
+.submit:hover{background:#a8945a}
+.closing{text-align:center;margin-top:48px;line-height:2.2;font-size:15px}
+
+.thanks{display:none;text-align:center;padding:80px 0}
+.thanks.show{display:block}
+
+footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font-size:10px;letter-spacing:.08em}
+
+
+/* answered mark */
+.q-no{position:relative}
+.q.answered .q-no::after{content:"";position:absolute;right:-12px;top:-2px;width:5px;height:10px;border:solid var(--gold-hi);border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+@media (max-width:720px){
+  .hero{padding:60px 16px 48px}
+  .section_title-en{font-size:36px}
+  .section_title-ja{font-size:18px}
+  .hero .lead{font-size:14px;text-align:left}
+  main{padding:24px 16px 80px}
+  .progress .inner{padding:10px 16px}
+  .q{padding:36px 0}
+  .q-no{font-size:24px}
+  .q-title{font-size:16px;flex-basis:100%}
+  .choices{grid-template-columns:1fr;gap:4px}
+  .choice{min-height:44px}
+  .sub{padding:22px 16px}
+  .contact .section_title-en{font-size:30px}
+  .contact dl{flex-direction:column;align-items:stretch;gap:12px;padding:24px 0}
+  .contact dt{flex:none;font-size:16px;justify-content:flex-start}
+  .submit{font-size:20px;padding:22px 0}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h2 class="section_title">
+    <span class="section_title-en">Questionnaire</span>
+    <span class="section_title-ja">お客様アンケート</span>
+  </h2>
+  <p class="lead">エクスパンスにご来店いただき、誠にありがとうございます。<br>
+  より良いサービス・店舗づくりのため、アンケートへのご協力をお願いいたします。<br>
+  所要時間は約1分です。</p>
+</section>
+
+<div class="progress" aria-hidden="true">
+  <div class="inner"><span>回答状況</span><div class="bar"><i id="bar"></i></div><span class="num"><span id="done">0</span> / 12</span></div>
+</div>
+
+<main>
+<form id="survey" class="form-top" novalidate>
+<section class="q" id="q1"><div class="q-head"><span class="q-no">Q.01</span><h3 class="q-title">ご来店回数を教えてください。</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q1" value="初めて"><span class="mark"></span><span class="txt">初めて</span></label><label class="choice"><input type="radio" name="q1" value="2～3回"><span class="mark"></span><span class="txt">2～3回</span></label><label class="choice"><input type="radio" name="q1" value="4～10回"><span class="mark"></span><span class="txt">4～10回</span></label><label class="choice"><input type="radio" name="q1" value="11回以上"><span class="mark"></span><span class="txt">11回以上</span></label></div></div></section>
+<section class="q" id="q2"><div class="q-head"><span class="q-no">Q.02</span><h3 class="q-title">当店を何で知りましたか？</h3><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="checkbox" name="q2" value="Google・検索"><span class="mark"></span><span class="txt">Google・検索</span></label><label class="choice"><input type="checkbox" name="q2" value="Instagram・SNS"><span class="mark"></span><span class="txt">Instagram・SNS</span></label><label class="choice"><input type="checkbox" name="q2" value="ホームページ"><span class="mark"></span><span class="txt">ホームページ</span></label><label class="choice"><input type="checkbox" name="q2" value="ホットペッパー・オズモール"><span class="mark"></span><span class="txt">ホットペッパー・オズモール</span></label><label class="choice"><input type="checkbox" name="q2" value="ギフトチケット"><span class="mark"></span><span class="txt">ギフトチケット</span></label><label class="choice"><input type="checkbox" name="q2" value="紹介"><span class="mark"></span><span class="txt">紹介</span></label><label class="choice"><input type="checkbox" name="q2" value="看板・店舗を見て"><span class="mark"></span><span class="txt">看板・店舗を見て</span></label><label class="choice other"><input type="checkbox" name="q2" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q2_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div></section>
+<section class="q" id="q3"><div class="q-head"><span class="q-no">Q.03</span><h3 class="q-title">エクスパンスにご来店いただいた理由をお聞かせください。</h3><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="checkbox" name="q3" value="メニュー内容"><span class="mark"></span><span class="txt">メニュー内容</span></label><label class="choice"><input type="checkbox" name="q3" value="店舗の立地"><span class="mark"></span><span class="txt">店舗の立地</span></label><label class="choice"><input type="checkbox" name="q3" value="口コミ・評判"><span class="mark"></span><span class="txt">口コミ・評判</span></label><label class="choice"><input type="checkbox" name="q3" value="価格"><span class="mark"></span><span class="txt">価格</span></label><label class="choice"><input type="checkbox" name="q3" value="スタッフ"><span class="mark"></span><span class="txt">スタッフ</span></label><label class="choice"><input type="checkbox" name="q3" value="キャンペーン・クーポン"><span class="mark"></span><span class="txt">キャンペーン・クーポン</span></label><label class="choice other"><input type="checkbox" name="q3" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q3_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div></section>
+<section class="q" id="q4"><div class="q-head"><span class="q-no">Q.04</span><h3 class="q-title">どのようなお身体のお悩みでご来店されましたか？</h3><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="checkbox" name="q4" value="肩・首の疲れ"><span class="mark"></span><span class="txt">肩・首の疲れ</span></label><label class="choice"><input type="checkbox" name="q4" value="腰の疲れ"><span class="mark"></span><span class="txt">腰の疲れ</span></label><label class="choice"><input type="checkbox" name="q4" value="足の疲れ・むくみ"><span class="mark"></span><span class="txt">足の疲れ・むくみ</span></label><label class="choice"><input type="checkbox" name="q4" value="全身疲労"><span class="mark"></span><span class="txt">全身疲労</span></label><label class="choice"><input type="checkbox" name="q4" value="ストレス・リラックス"><span class="mark"></span><span class="txt">ストレス・リラックス</span></label><label class="choice"><input type="checkbox" name="q4" value="美容目的"><span class="mark"></span><span class="txt">美容目的</span></label><label class="choice"><input type="checkbox" name="q4" value="身体のメンテナンス"><span class="mark"></span><span class="txt">身体のメンテナンス</span></label><label class="choice other"><input type="checkbox" name="q4" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q4_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div></section>
+<section class="q" id="q5"><div class="q-head"><span class="q-no">Q.05</span><h3 class="q-title">施術後のお身体の状態はいかがですか？</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q5" value="とても楽になった"><span class="mark"></span><span class="txt">とても楽になった</span></label><label class="choice"><input type="radio" name="q5" value="楽になった"><span class="mark"></span><span class="txt">楽になった</span></label><label class="choice"><input type="radio" name="q5" value="少し楽になった"><span class="mark"></span><span class="txt">少し楽になった</span></label><label class="choice"><input type="radio" name="q5" value="あまり変わらない"><span class="mark"></span><span class="txt">あまり変わらない</span></label><label class="choice"><input type="radio" name="q5" value="変わらない"><span class="mark"></span><span class="txt">変わらない</span></label></div></div></section>
+<section class="q" id="q6"><div class="q-head"><span class="q-no">Q.06</span><h3 class="q-title">スタッフの対応はいかがでしたか？</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q6" value="とても良い"><span class="mark"></span><span class="txt">とても良い</span></label><label class="choice"><input type="radio" name="q6" value="良い"><span class="mark"></span><span class="txt">良い</span></label><label class="choice"><input type="radio" name="q6" value="普通"><span class="mark"></span><span class="txt">普通</span></label><label class="choice"><input type="radio" name="q6" value="やや悪い"><span class="mark"></span><span class="txt">やや悪い</span></label><label class="choice"><input type="radio" name="q6" value="悪い"><span class="mark"></span><span class="txt">悪い</span></label></div><div class="sub"><div class="sub-head"><span class="sub-mark"></span><h4>その理由をお聞かせください。</h4><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="choices"><label class="choice"><input type="checkbox" name="q6_1" value="カウンセリング"><span class="mark"></span><span class="txt">カウンセリング</span></label><label class="choice"><input type="checkbox" name="q6_1" value="施術技術"><span class="mark"></span><span class="txt">施術技術</span></label><label class="choice"><input type="checkbox" name="q6_1" value="接客・会話"><span class="mark"></span><span class="txt">接客・会話</span></label><label class="choice"><input type="checkbox" name="q6_1" value="力加減"><span class="mark"></span><span class="txt">力加減</span></label><label class="choice"><input type="checkbox" name="q6_1" value="身体についての説明"><span class="mark"></span><span class="txt">身体についての説明</span></label><label class="choice"><input type="checkbox" name="q6_1" value="提案・アドバイス"><span class="mark"></span><span class="txt">提案・アドバイス</span></label><label class="choice other"><input type="checkbox" name="q6_1" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q6_1_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div><div class="sub"><div class="sub-head"><span class="sub-mark"></span><h4>担当者の名前を教えてください。</h4><span class="badge opt">任意</span></div><input type="text" class="field short" name="q6_2" placeholder="例：山田"></div></div></section>
+<section class="q" id="q7"><div class="q-head"><span class="q-no">Q.07</span><h3 class="q-title">また当店を利用したいと思いますか？</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q7" value="ぜひ利用したい"><span class="mark"></span><span class="txt">ぜひ利用したい</span></label><label class="choice"><input type="radio" name="q7" value="利用したい"><span class="mark"></span><span class="txt">利用したい</span></label><label class="choice"><input type="radio" name="q7" value="どちらともいえない"><span class="mark"></span><span class="txt">どちらともいえない</span></label><label class="choice"><input type="radio" name="q7" value="あまり利用したくない"><span class="mark"></span><span class="txt">あまり利用したくない</span></label><label class="choice"><input type="radio" name="q7" value="利用したくない"><span class="mark"></span><span class="txt">利用したくない</span></label></div><div class="sub"><div class="sub-head"><span class="sub-mark"></span><h4>その理由を教えてください。</h4><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="choices"><label class="choice"><input type="checkbox" name="q7_1" value="施術内容"><span class="mark"></span><span class="txt">施術内容</span></label><label class="choice"><input type="checkbox" name="q7_1" value="身体の変化"><span class="mark"></span><span class="txt">身体の変化</span></label><label class="choice"><input type="checkbox" name="q7_1" value="スタッフの対応"><span class="mark"></span><span class="txt">スタッフの対応</span></label><label class="choice"><input type="checkbox" name="q7_1" value="店舗・雰囲気"><span class="mark"></span><span class="txt">店舗・雰囲気</span></label><label class="choice"><input type="checkbox" name="q7_1" value="料金"><span class="mark"></span><span class="txt">料金</span></label><label class="choice"><input type="checkbox" name="q7_1" value="立地"><span class="mark"></span><span class="txt">立地</span></label><label class="choice other"><input type="checkbox" name="q7_1" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q7_1_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div></div></section>
+<section class="q" id="q8"><div class="q-head"><span class="q-no">Q.08</span><h3 class="q-title">ご希望されるご来店頻度はございますか？</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q8" value="週1回"><span class="mark"></span><span class="txt">週1回</span></label><label class="choice"><input type="radio" name="q8" value="月2回"><span class="mark"></span><span class="txt">月2回</span></label><label class="choice"><input type="radio" name="q8" value="月1回"><span class="mark"></span><span class="txt">月1回</span></label><label class="choice"><input type="radio" name="q8" value="2～3か月に1回"><span class="mark"></span><span class="txt">2～3か月に1回</span></label><label class="choice"><input type="radio" name="q8" value="疲れたとき"><span class="mark"></span><span class="txt">疲れたとき</span></label><label class="choice"><input type="radio" name="q8" value="特に決まっていない"><span class="mark"></span><span class="txt">特に決まっていない</span></label></div></div></section>
+<section class="q" id="q9"><div class="q-head"><span class="q-no">Q.09</span><h3 class="q-title">料金についてどう感じますか？</h3><span class="badge req">必須</span><span class="badge type">1つのみ選択</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="radio" name="q9" value="安い"><span class="mark"></span><span class="txt">安い</span></label><label class="choice"><input type="radio" name="q9" value="普通"><span class="mark"></span><span class="txt">普通</span></label><label class="choice"><input type="radio" name="q9" value="やや高い"><span class="mark"></span><span class="txt">やや高い</span></label><label class="choice"><input type="radio" name="q9" value="高い"><span class="mark"></span><span class="txt">高い</span></label><label class="choice"><input type="radio" name="q9" value="価格よりも内容を重視している"><span class="mark"></span><span class="txt">価格よりも内容を重視している</span></label><label class="choice other"><input type="radio" name="q9" value="その他"><span class="mark"></span><span class="txt">その他</span><input type="text" class="other-input" name="q9_other" placeholder="ご自由にご記入ください" aria-label="その他の内容"></label></div></div></section>
+<section class="q" id="q10"><div class="q-head"><span class="q-no">Q.10</span><h3 class="q-title">次回受けたい施術メニューはございますか？</h3><span class="badge req">必須</span><span class="badge type">複数選択可</span></div><div class="q-body"><div class="choices"><label class="choice"><input type="checkbox" name="q10" value="今回と同じ施術"><span class="mark"></span><span class="txt">今回と同じ施術</span></label><label class="choice"><input type="checkbox" name="q10" value="別の施術を試したい"><span class="mark"></span><span class="txt">別の施術を試したい</span></label><label class="choice"><input type="checkbox" name="q10" value="オプションを追加したい"><span class="mark"></span><span class="txt">オプションを追加したい</span></label><label class="choice"><input type="checkbox" name="q10" value="身体の状態に合わせて提案してほしい"><span class="mark"></span><span class="txt">身体の状態に合わせて提案してほしい</span></label><label class="choice"><input type="checkbox" name="q10" value="相談したい"><span class="mark"></span><span class="txt">相談したい</span></label><label class="choice"><input type="checkbox" name="q10" value="まだ決めていない"><span class="mark"></span><span class="txt">まだ決めていない</span></label></div></div></section>
+<section class="q" id="q11"><div class="q-head"><span class="q-no">Q.11</span><h3 class="q-title">今後あったら嬉しいサービス・メニューがあれば教えてください。</h3><span class="badge opt">任意</span></div><div class="q-body"><div class="area-wrap"><textarea class="field" name="q11" rows="3" maxlength="50" placeholder="50文字以内でご記入ください"></textarea><p class="count"><span>0</span> / 50</p></div></div></section>
+<section class="q" id="q12"><div class="q-head"><span class="q-no">Q.12</span><h3 class="q-title">ご意見・ご感想・改善してほしい点などございましたら、お聞かせください。</h3><span class="badge opt">任意</span></div><div class="q-body"><div class="area-wrap"><textarea class="field" name="q12" rows="8" maxlength="300" placeholder="300文字以内でご記入ください"></textarea><p class="count"><span>0</span> / 300</p></div></div></section>
+
+<div class="final">
+<section class="contact">
+  <p class="intro">ご回答ありがとうございました。<br>差し支えなければ、お名前・ご連絡先をご記入ください。</p>
+  <dl><dt>お名前<span class="badge opt">任意</span></dt><dd><input class="field" type="text" name="name" placeholder="例：山田花子" autocomplete="name"></dd></dl>
+  <dl><dt>お電話番号<span class="badge opt">任意</span></dt><dd><input class="field" type="tel" name="tel" placeholder="例：090 0000 0000" autocomplete="tel"></dd></dl>
+  <dl><dt>メールアドレス<span class="badge opt">任意</span></dt><dd><input class="field" type="email" name="email" placeholder="例：sample@example.com" autocomplete="email"></dd></dl>
+</section>
+
+<div class="submit-area"><button type="submit" class="submit">送信する</button></div>
+<p class="closing">いただいたご意見を、より良いサービス・店舗づくりに活かしてまいります。<br>次回のご来店を心よりお待ちしております。</p>
+</div>
+</form>
+
+<div class="thanks" id="thanks">
+  <h2 class="section_title"><span class="section_title-en">Thank you</span><span class="section_title-ja">ご回答ありがとうございました</span></h2>
+  <p class="closing">いただいたご意見を、より良いサービス・店舗づくりに活かしてまいります。<br>次回のご来店を心よりお待ちしております。</p>
+</div>
+</main>
+
+<footer>COPYRIGHTS(C) R&amp;M ALL RIGHTS RESERVED.</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('survey');
+  var qs=[].slice.call(document.querySelectorAll('.q'));
+  function answered(q){
+    // メイン設問のみで判定（サブ設問は除く）
+    var direct=q.querySelector('.q-body').firstElementChild;
+    if(direct.querySelector('input:checked'))return true;
+    var t=direct.querySelector('textarea,input.field');
+    return !!(t&&t.value.trim());
+  }
+  function update(){
+    qs.forEach(function(q){q.classList.toggle('answered',answered(q))});
+    var n=qs.filter(answered).length;
+    document.getElementById('done').textContent=n;
+    document.getElementById('bar').style.width=(n/qs.length*100)+'%';
+  }
+  form.addEventListener('input',update);
+  form.addEventListener('change',update);
+  // 文字数カウンター
+  [].forEach.call(document.querySelectorAll('.area-wrap'),function(w){
+    var ta=w.querySelector('textarea'),c=w.querySelector('.count span');
+    ta.addEventListener('input',function(){c.textContent=ta.value.length});
+  });
+  // 「その他」入力時に自動でチェック
+  [].forEach.call(document.querySelectorAll('.other-input'),function(i){
+    i.addEventListener('input',function(){
+      var box=i.parentNode.querySelector('input[type=radio],input[type=checkbox]');
+      if(i.value.trim()&&!box.checked){box.checked=true;box.dispatchEvent(new Event('change',{bubbles:true}))}
+    });
+  });
+  // 必須チェック：未回答の設問にメッセージを表示
+  var reqs=[].map.call(document.querySelectorAll('.badge.req'),function(b){
+    var sub=b.closest('.sub'),wrap=sub||b.closest('.q');
+    var box=sub?sub.querySelector('.choices'):wrap.querySelector('.q-body > .choices');
+    var err=document.createElement('p');err.className='q-error';err.textContent='こちらの設問にご回答ください。';
+    box.parentNode.insertBefore(err,box.nextSibling);
+    box.addEventListener('change',function(){if(box.querySelector('input:checked'))wrap.classList.remove('needs-answer')});
+    return {wrap:wrap,box:box};
+  });
+  // デザイン確認用：送信せずサンクス表示
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var missing=reqs.filter(function(r){return !r.box.querySelector('input:checked')});
+    reqs.forEach(function(r){r.wrap.classList.toggle('needs-answer',missing.indexOf(r)>-1)});
+    if(missing.length){missing[0].wrap.scrollIntoView({behavior:'smooth',block:'start'});return}
+    form.style.display='none';
+    document.querySelector('.progress').style.display='none';
+    document.getElementById('thanks').classList.add('show');
+    window.scrollTo({top:document.querySelector('.hero').offsetHeight,behavior:'smooth'});
+  });
+})();
+</script>
+</body>
+</html>

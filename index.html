@@ -103,6 +103,7 @@ textarea.field{resize:vertical;line-height:1.8}
 .contact dd{flex:1}
 
 .submit-area{margin-top:60px;text-align:center}
+.submit-thanks{font-size:17px;margin-bottom:24px}
 .submit{width:100%;max-width:560px;border:0;background:var(--gold);color:var(--text);font-family:inherit;font-size:24px;letter-spacing:.2em;padding:26px 0;cursor:pointer;transition:background .25s}
 .submit:hover{background:#a8945a}
 .closing{text-align:center;margin-top:48px;line-height:2.2;font-size:15px}
@@ -170,13 +171,13 @@ footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font
 
 <div class="final">
 <section class="contact">
-  <p class="intro">ご回答ありがとうございました。<br>差し支えなければ、お名前・ご連絡先をご記入ください。</p>
+  <p class="intro">差し支えなければ、お名前・ご連絡先をご記入ください。</p>
   <dl><dt>お名前<span class="badge opt">任意</span></dt><dd><input class="field" type="text" name="name" placeholder="例：山田花子" autocomplete="name"></dd></dl>
   <dl><dt>お電話番号<span class="badge opt">任意</span></dt><dd><input class="field" type="tel" name="tel" placeholder="例：090 0000 0000" autocomplete="tel"></dd></dl>
   <dl><dt>メールアドレス<span class="badge opt">任意</span></dt><dd><input class="field" type="email" name="email" placeholder="例：sample@example.com" autocomplete="email"></dd></dl>
 </section>
 
-<div class="submit-area"><button type="submit" class="submit">送信する</button></div>
+<div class="submit-area"><p class="submit-thanks">ご回答ありがとうございました。</p><button type="submit" class="submit">送信する</button></div>
 <p class="closing">いただいたご意見を、より良いサービス・店舗づくりに活かしてまいります。<br>次回のご来店を心よりお待ちしております。</p>
 </div>
 </form>

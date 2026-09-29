@@ -42,10 +42,13 @@ a{color:inherit}
 
 /* progress */
 .progress{position:sticky;top:0;z-index:10;background:rgba(51,46,43,.94);backdrop-filter:blur(4px);border-bottom:1px solid #5a5350}
-.progress .inner{max-width:900px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px;font-size:12px}
-.progress .bar{flex:1;height:2px;background:#5a5350;position:relative}
-.progress .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);transition:width .35s}
-.progress .num{font-family:"Cinzel",serif;color:var(--gold-hi);min-width:64px;text-align:right}
+.progress .inner{max-width:900px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px;font-size:15px;font-weight:500}
+.progress .bar{flex:1;height:8px;background:#5a5350;border-radius:4px;position:relative;overflow:hidden}
+.progress .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);border-radius:4px;transition:width .35s}
+.progress .num{font-family:"Cinzel",serif;font-size:22px;line-height:1;color:var(--gold-hi);min-width:80px;text-align:right;white-space:nowrap}
+.progress .num small{font-size:15px;color:var(--muted)}
+.progress.complete .bar i{background:var(--gold-hi)}
+.progress.complete .num,.progress.complete .num small{color:#fff}
 
 /* form */
 main{max-width:900px;margin:0 auto;padding:40px 24px 100px}
@@ -137,7 +140,8 @@ footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font
   .section_title-ja{font-size:18px}
   .hero .lead{font-size:14px;text-align:left}
   main{padding:24px 16px 80px}
-  .progress .inner{padding:10px 16px}
+  .progress .inner{padding:12px 16px;gap:12px;font-size:14px}
+  .progress .num{font-size:20px;min-width:70px}
   .q{padding:36px 0}
   .q-no{font-size:24px}
   .q-title{font-size:16px;flex-basis:100%}
@@ -167,7 +171,7 @@ footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font
 </section>
 
 <div class="progress" aria-hidden="true">
-  <div class="inner"><span>回答状況</span><div class="bar"><i id="bar"></i></div><span class="num"><span id="done">0</span> / 12</span></div>
+  <div class="inner"><span>回答状況</span><div class="bar"><i id="bar"></i></div><span class="num"><span id="done">0</span><small> / 12</small></span></div>
 </div>
 
 <main>
@@ -224,9 +228,11 @@ footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font
   }
   function update(){
     qs.forEach(function(q){q.classList.toggle('answered',answered(q))});
-    var n=qs.filter(answered).length;
+    // 回答状況は必須項目のみでカウント
+    var n=reqs.filter(function(r){return r.box.querySelector('input:checked')}).length;
     document.getElementById('done').textContent=n;
-    document.getElementById('bar').style.width=(n/qs.length*100)+'%';
+    document.getElementById('bar').style.width=(n/reqs.length*100)+'%';
+    document.querySelector('.progress').classList.toggle('complete',n===reqs.length);
   }
   form.addEventListener('input',update);
   form.addEventListener('change',update);

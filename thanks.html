@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ご回答ありがとうございました | Expanse..</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#403936;
+  --bg-deep:#332e2b;
+  --text:#d6d6d6;
+  --muted:#a9a4a0;
+  --gold:#958348;
+  --gold-hi:#a58c1b;
+  --line:#787573;
+  --field:#ffffff;
+  --field-text:#222;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Noto Serif JP",serif;
+  font-size:15px;
+  line-height:1.9;
+  letter-spacing:.04em;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+
+/* title */
+.section_title{font-weight:400}
+.section_title-en{display:block;font-family:"Cinzel","Trajan",serif;font-size:55px;line-height:1.35;text-transform:uppercase;color:var(--text);letter-spacing:.02em}
+.section_title-ja{display:block;font-size:24px;color:var(--gold-hi);margin-top:10px}
+
+/* thanks */
+.thanks{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:calc(100vh - 80px);padding:100px 16px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(149,131,72,.16),transparent 60%),var(--bg-deep)}
+.thanks{animation:thanksIn .9s ease both}
+@keyframes thanksIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.thanks-ornament{display:flex;align-items:center;gap:14px;margin-bottom:34px;color:var(--gold-hi)}
+.thanks-ornament::before,.thanks-ornament::after{content:"";width:56px;height:1px;background:var(--gold)}
+.thanks-ornament span{width:8px;height:8px;border:1px solid var(--gold-hi);transform:rotate(45deg)}
+.thanks .section_title-en{font-size:60px}
+.thanks-text{margin-top:40px;line-height:2.3;font-size:15px}
+.thanks-line{width:1px;height:56px;background:var(--gold);margin:44px auto}
+.thanks-brand{font-family:"Cinzel",serif;font-size:22px;letter-spacing:.14em}
+.thanks-brand small{display:block;font-family:"Noto Serif JP",serif;font-size:11px;letter-spacing:.3em;color:var(--muted);margin-top:4px}
+.thanks-link{display:inline-block;margin-top:40px;border:1px solid var(--gold);color:var(--text);text-decoration:none;font-size:14px;letter-spacing:.2em;padding:14px 48px;transition:background .25s}
+.thanks-link:hover{background:var(--gold)}
+@media (prefers-reduced-motion:reduce){.thanks{animation:none}}
+
+footer{border-top:1px solid var(--line);text-align:center;padding:30px 16px;font-size:10px;letter-spacing:.08em}
+
+@media (max-width:720px){
+  .section_title-en{font-size:36px}
+  .section_title-ja{font-size:18px}
+  .thanks{padding:72px 16px}
+  .thanks .section_title-en{font-size:40px}
+  .thanks-text{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<section class="thanks">
+  <div class="thanks-ornament"><span></span></div>
+  <h2 class="section_title"><span class="section_title-en">Thank you</span><span class="section_title-ja">ご回答ありがとうございました</span></h2>
+  <p class="thanks-text">アンケートへのご協力、誠にありがとうございました。<br>いただいたご意見は、より良いサービス・店舗づくりに<br>活かしてまいります。<br>次回のご来店を心よりお待ちしております。</p>
+  <div class="thanks-line"></div>
+  <p class="thanks-brand">Expanse..<small>エクスパンス</small></p>
+  <a class="thanks-link" href="https://expanse.jp/">公式サイトへ</a>
+</section>
+
+<footer>COPYRIGHTS(C) R&amp;M ALL RIGHTS RESERVED.</footer>
+</body>
+</html>
